@@ -1,12 +1,12 @@
 package com.cmpe282.artemis.jobportal.entities;
 
 import com.cmpe282.artemis.jobportal.enums.JobType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +23,11 @@ public class JobPost {
     private LocalDate expiry;
     @OneToMany
     private List<SkillSet> skillSetList;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Company company;
     @OneToOne
     private Recruiter recruiter;
 }
