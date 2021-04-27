@@ -1,6 +1,7 @@
 package com.cmpe282.artemis.jobportal.entities;
 
 import com.cmpe282.artemis.jobportal.enums.Industry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,5 +19,6 @@ public class Company {
     private String about;
     private String websiteUrl;
     @OneToMany
+    @JsonIgnore
     private List<Media> mediaList;
 }
