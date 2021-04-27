@@ -23,7 +23,7 @@ public class MediaController {
 		this.mediaService = mediaService;
 	}
 	
-	@PostMapping("/candidate{candidateId}")
+	@PostMapping("/candidate/{candidateId}")
     public Media save(@RequestPart(value="file")MultipartFile file, @PathVariable String candidateId){
         return mediaService.save(file, candidateId);
     }
