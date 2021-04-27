@@ -29,5 +29,6 @@ public class JobPost {
     @JsonIgnore
     private Company company;
     @OneToOne
+    @JsonIgnore
     private Recruiter recruiter;
 }
