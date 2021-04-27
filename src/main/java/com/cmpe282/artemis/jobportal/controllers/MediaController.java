@@ -2,6 +2,7 @@ package com.cmpe282.artemis.jobportal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -22,8 +23,8 @@ public class MediaController {
 		this.mediaService = mediaService;
 	}
 	
-	@PostMapping("/upload")
-    public Media save(@RequestPart(value="file")MultipartFile file){
-        return mediaService.save(file);
+	@PostMapping("/candidate{candidateId}")
+    public Media save(@RequestPart(value="file")MultipartFile file, @PathVariable String candidateId){
+        return mediaService.save(file, candidateId);
     }
 }
