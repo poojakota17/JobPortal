@@ -15,10 +15,10 @@ public class Company {
     @Id
     private String companyId;
     private String name;
+    private String email;
     private Industry industry;
     private String about;
     private String websiteUrl;
     @OneToMany
-    @JsonIgnore
     private List<Media> mediaList;
 }

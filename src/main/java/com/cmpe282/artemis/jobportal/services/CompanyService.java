@@ -1,20 +1,11 @@
 package com.cmpe282.artemis.jobportal.services;
 
 import com.cmpe282.artemis.jobportal.entities.Company;
-import com.cmpe282.artemis.jobportal.entities.Media;
-import com.cmpe282.artemis.jobportal.enums.FileType;
 import com.cmpe282.artemis.jobportal.repositories.CompanyRepository;
 import com.cmpe282.artemis.jobportal.repositories.MediaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CompanyService {
@@ -23,38 +14,50 @@ public class CompanyService {
     private CompanyRepository companyRepository;
     private MediaRepository mediaRepository;
 
+
+    @Autowired
     public CompanyService(UploadAmazonClient amazonClient, CompanyRepository companyRepository, MediaRepository mediaRepository) {
         this.amazonClient = amazonClient;
         this.companyRepository = companyRepository;
         this.mediaRepository = mediaRepository;
     }
 
-    public Company save(String company, MultipartFile[] images) {
-        Company companyJson = new Company();
+    public Company save(Company company) throws JsonProcessingException {
+        try {
+            Company existingCompany = companyRepository.findById(company.getCompanyId()).get();
+            boolean isSaveNeeded = false;
 
-        try{
-            ObjectMapper objectMapper = new ObjectMapper();
-            companyJson = objectMapper.readValue(company, Company.class);
-            System.out.println(companyJson);
-            companyJson.setCompanyId(UUID.randomUUID().toString());
-            List<Media> mediaList = new ArrayList<>();
-            for(MultipartFile image: images) {
-                String url = amazonClient.uploadFile(image);
-                Media media = new Media();
-                media.setUrl(url);
-                media.setId(UUID.randomUUID().toString());
-                media.setFileType(FileType.IMAGE);
-                mediaList.add(mediaRepository.save(media));
+            if(existingCompany.getName() == null && company.getName() != null){
+                existingCompany.setName(company.getName());
+                isSaveNeeded = true;
             }
-            companyJson.setMediaList(mediaList);
-            return companyRepository.save(companyJson);
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            if(existingCompany.getEmail() == null && company.getEmail() != null){
+                existingCompany.setEmail(company.getEmail());
+                isSaveNeeded = true;
+            }
+            if(existingCompany.getIndustry() == null && company.getIndustry() != null){
+                existingCompany.setIndustry(company.getIndustry());
+                isSaveNeeded = true;
+            }
+            if(existingCompany.getAbout() == null && company.getAbout() != null){
+                existingCompany.setAbout(company.getAbout());
+                isSaveNeeded = true;
+            }
+            if(existingCompany.getWebsiteUrl() == null && company.getWebsiteUrl() != null) {
+                existingCompany.setWebsiteUrl(company.getWebsiteUrl());
+                isSaveNeeded = true;
+            }
+            if(isSaveNeeded) {
+                existingCompany = companyRepository.save(existingCompany);
+            }
+            return existingCompany;
+        } catch(Exception e) {
+            Company newCompany = companyRepository.save(company);
+            return newCompany;
         }
-        return null;
-
     }
 
+    public Company getCompanyById(String companyId) {
+        return companyRepository.findById(companyId).get();
+    }
 }

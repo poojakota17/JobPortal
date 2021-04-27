@@ -27,4 +27,8 @@ public class RecruiterService {
         recruiter.setCompany(company);
         return recruiterRepository.save(recruiter);
     }
+
+    public Iterable<Recruiter> getRecruitersByCompanyId(String companyId) {
+        return recruiterRepository.findByCompanyCompanyId(companyId);
+    }
 }

@@ -22,4 +22,8 @@ public class RecruiterController {
     public Recruiter addRecruiter(@PathVariable String companyId, @RequestBody Recruiter recruiter){
         return recruiterService.addRecruiter(companyId,recruiter);
     }
+    @GetMapping("/{companyId}")
+    public Iterable<Recruiter> getRecruitersByCompanyId(@PathVariable String companyId){
+        return recruiterService.getRecruitersByCompanyId(companyId);
+    }
 }
