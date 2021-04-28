@@ -25,4 +25,9 @@ public class SkillSetController {
     public Iterable<SkillSet> getAllSkillSets(){
         return skillSetService.getAllSkillSets();
     }
+
+    @PostMapping("{candidateId}")
+    public SkillSet addToCandidateProfile(@PathVariable String candidateId, @RequestBody SkillSet skillSet){
+        return skillSetService.addToCandidateProfile(candidateId, skillSet);
+    }
 }
