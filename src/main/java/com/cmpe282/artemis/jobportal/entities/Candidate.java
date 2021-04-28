@@ -2,9 +2,9 @@ package com.cmpe282.artemis.jobportal.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,4 +17,10 @@ public class Candidate {
     private String phone;
     @OneToOne
     private Media resume;
+    @OneToMany
+    private List<Education> educationList = new ArrayList<>();
+    @OneToMany
+    private List<WorkHistory> workHistoryList = new ArrayList<>();
+    @OneToMany
+    private List<SkillSet> skillSetList = new ArrayList<>();
 }
