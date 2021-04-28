@@ -4,7 +4,10 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-light border-bottom border-primary">
+        <nav
+          class="navbar navbar-light border-bottom border-primary"
+          style={{ padding: "20px" }}
+        >
           <div class="container-fluid">
             <a class="navbar-brand">
               <i class="fas fa-globe-europe"></i> JobPortal
