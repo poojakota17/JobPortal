@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 class Header extends Component {
   render() {
     return (
@@ -8,22 +7,23 @@ class Header extends Component {
           class="navbar navbar-light border-bottom border-primary"
           style={{ padding: "20px" }}
         >
+           
           <div class="container-fluid">
-            <a class="navbar-brand">
-              <i class="fas fa-globe-europe"></i> JobPortal
+            <a class="main-logo" href="/candidate">
+             <h5>J <i class="fas fa-globe-europe"></i> B &nbsp;P O R T A L</h5>
             </a>
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                style={{ margin: "0 10px 0 0" }}
-              />
-              <button class="btn btn-outline-primary" type="submit">
-                Search
-              </button>
-            </form>
+            <a class="navbar-brand" href="/candidate/findJob">
+            <i class="fa fa-search" aria-hidden="true"></i>{" "}Search Jobs
+            </a>
+            <a class="navbar-brand" href="/candidate/resume_details">
+            <i class="far fa-file"></i> {" "}Resume
+            </a>
+            <a class="navbar-brand" href="/candidate/appliedjobs">
+            <i class="fas fa-clipboard-check"></i>{" "} Applied Jobs
+            </a>           
+            <a class="navbar-brand" href="/">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>{" "}Logout
+            </a>
           </div>
         </nav>
       </div>

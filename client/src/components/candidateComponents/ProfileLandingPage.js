@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Image from 'react-bootstrap/Image';
 class ProfileLandingPage extends Component {
   render() {
     return (
@@ -10,29 +11,29 @@ class ProfileLandingPage extends Component {
               style={{ width: "18rem", margin: "50px" }}
             >
               <div class="card-body" style={{ margin: "70px 0 20px 0" }}>
+              <Image style={{ height: "200px", width:"200px" }} src="../images/dp.jpg" alt="profile image" roundedCircle />
+                <br />
+                <hr />
                 <h5 class="card-title">Jane Doe</h5>
                 <p class="card-text">FullStack Developer</p>
               </div>
               <ul class="list-group list-group-flush">
                 <a
-                  href="#"
+                  href="/candidate"
                   class="list-group-item list-group-item-action list-group-item-primary"
                 >
                   <i class="far fa-user"></i> Profile
                 </a>
                 <a
-                  href="/resume_details"
+                  href="/candidate/resume_details"
                   class="list-group-item list-group-item-action"
                 >
                   <i class="far fa-file-alt"></i> My Resume
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="/candidate/appliedjobs" class="list-group-item list-group-item-action">
                   <i class="fas fa-briefcase"></i> Applied Jobs
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                  <i class="far fa-bell"></i> Job Alerts
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="/" class="list-group-item list-group-item-action">
                   <i class="fas fa-sign-out-alt"></i> Log Out
                 </a>
               </ul>
@@ -45,7 +46,7 @@ class ProfileLandingPage extends Component {
             >
               <div class="card-body">
                 <h5 class="card-title" style={{ padding: "0 0 10px 0" }}>
-                  BASIC INFORMATION
+                  B A S I C  &nbsp;&nbsp;I N F O R M A T I O N 
                 </h5>
                 <hr></hr>
                 <form class="row">

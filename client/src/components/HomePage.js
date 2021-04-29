@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-class KeySkills extends Component {
+class HomePage extends Component {
   render() {
     return (
       <div>
-        <h3>key skills</h3>
+        <h3>HomePage</h3>
       </div>
     );
   }
 }
 
-export default KeySkills;
+export default HomePage;
