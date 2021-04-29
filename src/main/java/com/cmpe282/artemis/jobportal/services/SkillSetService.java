@@ -24,6 +24,7 @@ public class SkillSetService {
     }
 
     public SkillSet addSkillSet(SkillSet skillSet) {
+        skillSet.setId(UUID.randomUUID().toString());
         skillSet.setSkill(skillSet.getSkill().toUpperCase());
         return skillSetRepository.save(skillSet);
     }
