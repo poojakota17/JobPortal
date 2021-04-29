@@ -11,7 +11,6 @@ import javax.persistence.Id;
 @Entity
 public class SkillSet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String skill;
 }
