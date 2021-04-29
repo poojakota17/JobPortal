@@ -6,6 +6,9 @@ import com.cmpe282.artemis.jobportal.repositories.MediaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.UUID;
 
 @Service
 public class CompanyService {
@@ -52,6 +55,8 @@ public class CompanyService {
             }
             return existingCompany;
         } catch(Exception e) {
+            if(company.getCompanyId() == null || StringUtils.isEmpty(company.getCompanyId()))
+                company.setCompanyId(UUID.randomUUID().toString());
             Company newCompany = companyRepository.save(company);
             return newCompany;
         }
