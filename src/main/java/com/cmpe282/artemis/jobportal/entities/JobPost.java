@@ -21,7 +21,7 @@ public class JobPost {
     private String location;
     private JobType jobType;
     private LocalDate expiry;
-    @OneToMany
+    @ManyToMany
     private List<SkillSet> skillSetList;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "company_id", nullable = false)
