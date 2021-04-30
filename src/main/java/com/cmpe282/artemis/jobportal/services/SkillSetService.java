@@ -34,8 +34,8 @@ public class SkillSetService {
     }
 
     public SkillSet addToCandidateProfile(String candidateId, SkillSet skill){
-        skill.setId(UUID.randomUUID().toString());
-        SkillSet skillSet = skillSetRepository.save(skill);
+        //skill.setId(UUID.randomUUID().toString());
+        SkillSet skillSet = skillSetRepository.findById(skill.getId()).get();
         Candidate candidate = candidateRepository.findById(candidateId).get();
         List<SkillSet> skills = candidate.getSkillSetList();
         skills.add(skillSet);
