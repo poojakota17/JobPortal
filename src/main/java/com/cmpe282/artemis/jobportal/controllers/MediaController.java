@@ -25,6 +25,10 @@ public class MediaController {
     public Media save(@RequestPart(value="file")MultipartFile file, @PathVariable String candidateId){
         return mediaService.save(file, candidateId);
     }
+	@PostMapping("/candidate/profilepic/{candidateId}")
+	public Media saveProfilePicture(@RequestPart(value="image")MultipartFile file, @PathVariable String candidateId){
+		return mediaService.saveProfilePic(file, candidateId);
+	}
 	@PostMapping("/company/{companyId}")
 	public List<Media> save(@RequestPart(value = "images") MultipartFile[] images, @PathVariable String companyId){
 		return mediaService.saveCompanyMedia(images, companyId);

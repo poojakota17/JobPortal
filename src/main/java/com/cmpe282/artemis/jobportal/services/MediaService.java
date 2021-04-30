@@ -61,4 +61,16 @@ public class MediaService {
 		return mediaList;
     }
 
+    public Media saveProfilePic(MultipartFile file, String candidateId) {
+		String url = amazonClient.uploadFile(file);
+		Media media = new Media();
+		media.setUrl(url);
+		media.setId(UUID.randomUUID().toString());
+		media.setFileType(FileType.IMAGE);
+		Media newMedia = mediaRepository.save(media);
+		Candidate candidate = candidateRepository.findById(candidateId).get();
+		candidate.setProfilePicture(media);
+		candidateRepository.save(candidate);
+		return newMedia;
+    }
 }

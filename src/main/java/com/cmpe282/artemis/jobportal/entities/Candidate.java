@@ -17,6 +17,8 @@ public class Candidate {
     private String phone;
     @OneToOne
     private Media resume;
+    @OneToOne
+    private Media profilePicture;
     @OneToMany
     private List<Education> educationList = new ArrayList<>();
     @OneToMany
