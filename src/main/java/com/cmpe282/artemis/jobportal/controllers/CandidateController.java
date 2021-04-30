@@ -1,10 +1,14 @@
 package com.cmpe282.artemis.jobportal.controllers;
 
+import com.cmpe282.artemis.jobportal.services.SendEmailService;
+import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.cmpe282.artemis.jobportal.entities.Candidate;
 import com.cmpe282.artemis.jobportal.services.CandidateService;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin
