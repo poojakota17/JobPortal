@@ -37,7 +37,7 @@ public class JobApplicationService {
         jobApplication.setAppliedDate(LocalDate.now());
         jobApplication.setStatus(Status.APPLIED);
         JobApplication appliedJob = jobApplicationRepository.save(jobApplication);
-        sendEmailService.sendEmail();
+        sendEmailService.sendConfirmationEmail(jobApplication);
         return appliedJob;
     }
 }
