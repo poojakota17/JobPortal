@@ -3,7 +3,10 @@ package com.cmpe282.artemis.jobportal.services;
 import com.cmpe282.artemis.jobportal.entities.Candidate;
 import com.cmpe282.artemis.jobportal.entities.JobApplication;
 import com.cmpe282.artemis.jobportal.entities.JobPost;
+import com.cmpe282.artemis.jobportal.entities.DTO.JobPostAndCandidateDto;
+import com.cmpe282.artemis.jobportal.enums.EventType;
 import com.cmpe282.artemis.jobportal.enums.Status;
+import com.cmpe282.artemis.jobportal.mapper.JobPostAndCandidateMapper;
 import com.cmpe282.artemis.jobportal.repositories.CandidateRepository;
 import com.cmpe282.artemis.jobportal.repositories.JobApplicationRepository;
 import com.cmpe282.artemis.jobportal.repositories.JobPostRepository;
@@ -20,12 +23,17 @@ public class JobApplicationService {
     private CandidateRepository candidateRepository;
     private JobPostRepository jobPostRepository;
     private SendEmailService sendEmailService;
+    private JobPostAndCandidateDto jobPostAndCandidateDto;
+	private JobPostAndCandidateMapper jobPostAndCandidateMapper;
+	private PublisherClient publisherClient;
 
-    public JobApplicationService(JobApplicationRepository jobApplicationRepository, CandidateRepository candidateRepository, JobPostRepository jobPostRepository, SendEmailService sendEmailService) {
+    public JobApplicationService(JobApplicationRepository jobApplicationRepository, CandidateRepository candidateRepository, JobPostRepository jobPostRepository, SendEmailService sendEmailService, JobPostAndCandidateMapper jobPostAndCandidateMapper, PublisherClient publisherClient) {
         this.jobApplicationRepository = jobApplicationRepository;
         this.candidateRepository = candidateRepository;
         this.jobPostRepository = jobPostRepository;
         this.sendEmailService = sendEmailService;
+        this.jobPostAndCandidateMapper = jobPostAndCandidateMapper;
+		this.publisherClient = publisherClient;
     }
 
     public JobApplication save(JobApplication jobApplication) throws IOException {
@@ -38,6 +46,8 @@ public class JobApplicationService {
         jobApplication.setStatus(Status.APPLIED);
         JobApplication appliedJob = jobApplicationRepository.save(jobApplication);
         sendEmailService.sendConfirmationEmail(jobApplication);
+        jobPostAndCandidateDto = jobPostAndCandidateMapper.mapDto(jobPost, candidate);
+		publisherClient.publishJobPostAndCandidate(jobPostAndCandidateDto, EventType.ENTITY_CREATE);
         return appliedJob;
     }
 }
