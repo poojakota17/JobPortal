@@ -18,7 +18,7 @@ public class SendEmailService {
     public Response sendConfirmationEmail(JobApplication jobApplication) throws IOException {
         Email from = new Email("jeena.thampi@sjsu.edu");
         String subject = "Thanks for applying to "+jobApplication.getJobPost().getCompany().getName();
-        Email to = new Email("jeenathampi.23@gmail.com");
+        Email to = new Email(jobApplication.getCandidate().getEmail());
         String candidateName = jobApplication.getCandidate().getFirstName()+" "+jobApplication.getCandidate().getLastName();
         String companyName = jobApplication.getJobPost().getCompany().getName();
         Content content = new Content("text/html", EmailUtil.getConfirmationEmailTemplate(companyName, candidateName));
