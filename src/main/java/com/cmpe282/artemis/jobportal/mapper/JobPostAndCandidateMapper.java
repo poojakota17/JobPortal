@@ -28,7 +28,7 @@ public class JobPostAndCandidateMapper {
 			jobPostAndCandidateDto.setEmail(candidate.getEmail());
 		if (candidate.getPhone() != null)
 			jobPostAndCandidateDto.setPhone(candidate.getPhone());
-		if (candidate.getResume().getUrl() != null)
+		if (candidate.getResume() != null && candidate.getResume().getUrl() != null)
 			jobPostAndCandidateDto.setResumeUrl(candidate.getResume().getUrl());
 		return jobPostAndCandidateDto;
 

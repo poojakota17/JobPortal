@@ -50,4 +50,8 @@ public class JobApplicationService {
 		publisherClient.publishJobPostAndCandidate(jobPostAndCandidateDto, EventType.ENTITY_CREATE);
         return appliedJob;
     }
+
+    public Iterable<JobApplication> getJobApplicationsByCandidateId(String candidateId) {
+        return jobApplicationRepository.findByCandidateId(candidateId);
+    }
 }
