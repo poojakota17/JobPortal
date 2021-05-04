@@ -1,6 +1,7 @@
 package com.cmpe282.artemis.jobportal.controllers;
 
 import com.cmpe282.artemis.jobportal.entities.JobApplication;
+import com.cmpe282.artemis.jobportal.entities.Recruiter;
 import com.cmpe282.artemis.jobportal.services.JobApplicationService;
 import org.springframework.web.bind.annotation.*;
 
