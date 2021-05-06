@@ -6,10 +6,12 @@ import javax.persistence.Id;
 
 import com.cmpe282.artemis.jobportal.entities.SkillSet;
 import com.cmpe282.artemis.jobportal.enums.JobType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JobPostAndCandidateDto {
 		@Id
 		private String id;
