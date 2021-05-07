@@ -45,7 +45,7 @@ public class JobApplicationService {
         jobApplication.setAppliedDate(LocalDate.now());
         jobApplication.setStatus(Status.APPLIED);
         JobApplication appliedJob = jobApplicationRepository.save(jobApplication);
-        sendEmailService.sendConfirmationEmail(jobApplication);
+        sendEmailService.sendEmail(jobApplication);
         jobPostAndCandidateDto = jobPostAndCandidateMapper.mapDto(jobPost, candidate);
 		publisherClient.publishJobPostAndCandidate(jobPostAndCandidateDto, EventType.ENTITY_CREATE);
         return appliedJob;
@@ -55,7 +55,14 @@ public class JobApplicationService {
         return jobApplicationRepository.findByCandidateId(candidateId);
     }
     public Iterable<JobApplication> getJobApplicationsByJobPostId(String jobPostId) {
-        return jobApplicationRepository.findByJobPostId(jobPostId);
+        return jobApplicationRepository.findByJobPostIdAndStatusEquals(jobPostId, Status.APPLIED);
     }
 
+    public JobApplication reject(String jobApplicationId) throws IOException {
+        JobApplication application = jobApplicationRepository.findById(jobApplicationId).get();
+        application.setStatus(Status.REJECT);
+        JobApplication updatedJob = jobApplicationRepository.save(application);
+        sendEmailService.sendEmail(updatedJob);
+        return updatedJob;
+    }
 }
