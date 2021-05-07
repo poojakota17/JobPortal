@@ -26,4 +26,9 @@ public class JobApplicationController {
     public Iterable<JobApplication> getJobApplicationsByCandidateId(@PathVariable String candidateId){
         return jobApplicationService.getJobApplicationsByCandidateId(candidateId);
     }
+
+    @GetMapping("/jobpost/{jobPostId}")
+    public Iterable<JobApplication> getJobApplicationsByJobPostId(@PathVariable String jobPostId){
+        return jobApplicationService.getJobApplicationsByJobPostId(jobPostId);
+    }
 }

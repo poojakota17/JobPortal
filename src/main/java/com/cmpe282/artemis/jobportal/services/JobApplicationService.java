@@ -54,4 +54,8 @@ public class JobApplicationService {
     public Iterable<JobApplication> getJobApplicationsByCandidateId(String candidateId) {
         return jobApplicationRepository.findByCandidateId(candidateId);
     }
+    public Iterable<JobApplication> getJobApplicationsByJobPostId(String jobPostId) {
+        return jobApplicationRepository.findByJobPostId(jobPostId);
+    }
+
 }
