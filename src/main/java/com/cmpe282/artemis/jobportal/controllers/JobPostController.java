@@ -1,5 +1,6 @@
 package com.cmpe282.artemis.jobportal.controllers;
 
+import com.cmpe282.artemis.jobportal.entities.JobApplication;
 import com.cmpe282.artemis.jobportal.entities.JobPost;
 import com.cmpe282.artemis.jobportal.services.JobPostService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,5 +22,10 @@ public class JobPostController {
     @PostMapping("/new/{companyId}/{recruiterId}")
     public JobPost createNewJobPost(@PathVariable String companyId, @PathVariable String recruiterId, @RequestBody JobPost jobPost) throws JsonProcessingException {
         return jobPostService.createJobPost(companyId,recruiterId,jobPost);
+    }
+
+    @GetMapping("/{companyId}")
+    public Iterable<JobPost> getJobPostByCompanyId(@PathVariable String companyId){
+        return jobPostService.getJobPostByCompanyId(companyId);
     }
 }

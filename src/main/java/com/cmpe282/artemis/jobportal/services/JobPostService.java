@@ -53,4 +53,8 @@ public class JobPostService {
         publisherClient.publishJobPostingEvent(newJobPost, EventType.ENTITY_CREATE);
         return newJobPost;
     }
+
+    public Iterable<JobPost> getJobPostByCompanyId(String companyId) {
+        return jobPostRepository.findByCompanyCompanyId(companyId);
+    }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JobPostRepository extends CrudRepository<JobPost, String> {
+    Iterable<JobPost> findByCompanyCompanyId(String companyId);
 }
