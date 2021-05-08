@@ -57,6 +57,19 @@ public class JobApplicationService {
     public Iterable<JobApplication> getJobApplicationsByJobPostId(String jobPostId) {
         return jobApplicationRepository.findByJobPostIdAndStatusEquals(jobPostId, Status.APPLIED);
     }
+    public void sendZoomNotificationEmail(JobApplication jobApplication, String duration, String time, String url) throws IOException{
+        jobApplication.setStatus(Status.ACCEPT);
+        JobPost jobPost = jobPostRepository.findById(jobApplication.getJobPost().getId()).get();
+        Candidate candidate= candidateRepository.findById(jobApplication.getCandidate().getId()).get();
+        String email= candidate.getEmail();
+        String candidateName=candidate.getFirstName();
+        String companyName=jobPost.getCompany().getName();
+        String role=jobPost.getRole();
+        sendEmailService.zoomNotificationEmail(email,candidateName,companyName,role,duration,time,url);
+        jobApplicationRepository.save(jobApplication);
+
+
+    }
 
     public JobApplication reject(String jobApplicationId) throws IOException {
         JobApplication application = jobApplicationRepository.findById(jobApplicationId).get();

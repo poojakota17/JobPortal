@@ -32,8 +32,17 @@ public class JobApplicationController {
         return jobApplicationService.getJobApplicationsByJobPostId(jobPostId);
     }
 
+
     @PostMapping("/{jobApplicationId}")
     public JobApplication reject(@PathVariable String jobApplicationId) throws IOException {
         return jobApplicationService.reject(jobApplicationId);
     }
+
+    @PutMapping("/zoomnotification")
+    public void sendZoomNotification(@RequestBody JobApplication jobApplication,@RequestParam String duration,@RequestParam String time,@RequestParam String url) throws IOException{
+         jobApplicationService.sendZoomNotificationEmail(jobApplication,duration,time,url);
+    }
+
+
+
 }
