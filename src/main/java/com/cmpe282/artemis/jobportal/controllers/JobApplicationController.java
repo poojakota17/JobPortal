@@ -31,4 +31,9 @@ public class JobApplicationController {
     public Iterable<JobApplication> getJobApplicationsByJobPostId(@PathVariable String jobPostId){
         return jobApplicationService.getJobApplicationsByJobPostId(jobPostId);
     }
+
+    @PostMapping("/{jobApplicationId}")
+    public JobApplication reject(@PathVariable String jobApplicationId) throws IOException {
+        return jobApplicationService.reject(jobApplicationId);
+    }
 }

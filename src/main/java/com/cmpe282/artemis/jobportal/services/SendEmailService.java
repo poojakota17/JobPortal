@@ -1,6 +1,7 @@
 package com.cmpe282.artemis.jobportal.services;
 
 import com.cmpe282.artemis.jobportal.entities.JobApplication;
+import com.cmpe282.artemis.jobportal.enums.Status;
 import com.cmpe282.artemis.jobportal.utils.EmailUtil;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -15,13 +16,18 @@ import java.io.IOException;
 
 @Service
 public class SendEmailService {
-    public Response sendConfirmationEmail(JobApplication jobApplication) throws IOException {
+    public Response sendEmail(JobApplication jobApplication) throws IOException {
         Email from = new Email("jeena.thampi@sjsu.edu");
         String subject = "Thanks for applying to "+jobApplication.getJobPost().getCompany().getName();
         Email to = new Email(jobApplication.getCandidate().getEmail());
         String candidateName = jobApplication.getCandidate().getFirstName()+" "+jobApplication.getCandidate().getLastName();
         String companyName = jobApplication.getJobPost().getCompany().getName();
-        Content content = new Content("text/html", EmailUtil.getConfirmationEmailTemplate(companyName, candidateName));
+        Content content = null;
+        if(jobApplication.getStatus().equals(Status.APPLIED)){
+            content = new Content("text/html", EmailUtil.getConfirmationEmailTemplate(companyName, candidateName));
+        } else if(jobApplication.getStatus().equals(Status.REJECT)){
+            content = new Content("text/html",EmailUtil.getRejectionEmailTemplate(companyName, candidateName, jobApplication.getJobPost().getRole()));
+        }
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
